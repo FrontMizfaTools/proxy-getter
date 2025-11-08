@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "ProxyGetter",
+  "version": "1.0.0",
+  "description": "There is no way to stop us 🚀",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "host_permissions": ["<all_urls>"],
+  "permissions": [
+    "storage",
+    "proxy",
+    "browsingData",
+    "identity",
+    "tabs",
+    "webNavigation",
+    "scripting",
+    "search",
+    "debugger",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
+  ]
+}
