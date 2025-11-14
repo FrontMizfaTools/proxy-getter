@@ -12,6 +12,20 @@ const availableNumberOfProxies = [
   1, 10, 50, 100, 200, 300, 400, 500, 1000, 5000, 10000,
 ];
 
+function formatIranTime(input: Date | number): string {
+  const date = input instanceof Date ? input : new Date(input);
+  return date.toLocaleString("en-US", {
+    timeZone: "Asia/Tehran",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+}
+
 function getTimeUntilNextRun(): number {
   // Get current time as timestamp (UTC-based, timezone-independent)
   const now = Date.now();
@@ -63,16 +77,7 @@ function getTimeUntilNextRun(): number {
   const minutes = Math.floor((timeUntilNext / 1000 / 60) % 60);
   
   // Convert UTC time to Iran local time (UTC+3:30)
-  const targetDateIran = new Date(targetTime);
-  const iranTime = targetDateIran.toLocaleString('en-US', { 
-    timeZone: 'Asia/Tehran',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false
-  });
+  const iranTime = formatIranTime(targetTime);
   
   console.log(`⏰ Time until next run: ${hours} hours and ${minutes} minutes (at ${targetHour}:32 UTC / ${iranTime} Iran time)`);
   
@@ -116,7 +121,7 @@ async function processGetting() {
   console.log(`📝 Marked hour ${lastExecutedHour} as executed`);
 
   try {
-    console.log("Processing...", new Date().toLocaleString());
+    console.log("Processing...", formatIranTime(new Date()));
     const numResp = await getNumOfProxies();
 
     let desiredNumber = 0;

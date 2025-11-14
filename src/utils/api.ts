@@ -40,9 +40,7 @@ export async function cronjobRequest(url: string): Promise<void> {
       method: 'GET', 
     });
 
-    if (response.ok) {
-      console.log(`[Cronjob] Success:`, response.status);
-    } else {
+    if (!response.ok) {
       console.warn(`[Cronjob] Failed with status: ${response.status}`);
     }
   } catch (error) {
